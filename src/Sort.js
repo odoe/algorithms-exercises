@@ -6,27 +6,28 @@ import "./sort.css";
 
 function sort(nums) {
   // do cool stuff here
+  snapshot(nums);
+  for (let i = 1; i < nums.length; i++) {
+    let numberToInsert = nums[i]; // the numberToInsert number we're looking to insert
+    let j; // the inner counter
 
-  let swapped = false;
-
-  do {
-    swapped = false;
-    for (let i = 0; i < nums.length; ++i) {
-      snapshot(nums);
-      if (nums[i + 1] && nums[i] > nums[i + 1]) {
-        const temp = nums[i];
-        nums[i] = nums[i + 1];
-        nums[i + 1] = temp;
-        swapped = true;
-      }
+    // loop from the right to the left
+    for (j = i - 1; nums[j] > numberToInsert && j >= 0; j--) {
+      // move numbers to the right until we find where to insert
+      nums[j + 1] = nums[j];
     }
-  } while (swapped);
+
+    // do the insertion
+    nums[j + 1] = numberToInsert;
+    snapshot(nums);
+  }
 
   // return nums;
   // call snapshot any time you do anything to the array
   // it's okay if you call it with duplicate value array,
   // it will deduplicate for you
   snapshot(nums);
+  return nums;
 }
 
 export default function SortComponent() {
